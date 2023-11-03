@@ -1,22 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, } from 'react';
 import { Container, Card, Banner, BackButton, FavoriteButton, ShareButton, Subtitle, Rating, RatingText, ContainerInfo, Name } from './styles';
 
-import { Modal } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
-export default function ModalComponent(props){
-
-    const [ url, setUrl ] = useState(props.content.background_image);
+export default function GamePage(){
 
  return (
    <Container>
 
     <Card>
 
-    <BackButton onPress={props.close}>
+    <BackButton>
         <AntDesign name="arrowleft" size={24} color="white"/>
     </BackButton>
 
@@ -24,7 +22,7 @@ export default function ModalComponent(props){
         <MaterialIcons name="favorite-outline" size={24} color="white"/>
     </FavoriteButton>
     
-    <Banner source={{uri: url}}/>
+    <Banner/>
           
     </Card>
 
@@ -36,10 +34,10 @@ export default function ModalComponent(props){
 
         <Rating>
             <AntDesign name="star" size={18} color="#FABB1E" />
-            <RatingText>{props.content.rating}/10</RatingText>
+            <RatingText>/10</RatingText>
         </Rating>
 
-        <Name>{props.content.name}</Name>
+        <Name>{name}</Name>
 
         <Subtitle>Genres</Subtitle>
     </ContainerInfo>

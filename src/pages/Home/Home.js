@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, List, Title, Header, ButtonIcon, ContainerInput, Input, SubTitulo, ContainerList, ContainerGenreList, GenreList } from './styles';
+import { Container, List, Title, Header, ButtonIcon, ContainerInput, Input, SubTitulo, ContainerList, ButtonSearch } from './styles';
 
 import { Text } from 'react-native';
 
@@ -51,7 +51,10 @@ function Home() {
       placeholderTextColor='#F5F5F5' 
       />
 
-      <AntDesign name="search1" size={35} color="#FF455F" style={{padding: 5}}/>
+      <ButtonSearch>
+        <AntDesign name="search1" size={35} color="#FF455F" style={{padding: 5}}/>
+      </ButtonSearch>
+      
     </ContainerInput>
 
     <SubTitulo>Trending Games</SubTitulo>

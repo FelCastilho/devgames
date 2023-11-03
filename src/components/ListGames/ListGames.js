@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import { Container, Banner, ContainerText, Name, Rating, Card } from './styles';
 import { AntDesign } from '@expo/vector-icons';
-import { Modal } from 'react-native';
-import ModalComponent from '../ModalComponent/ModalComponent';
+import { useNavigation } from '@react-navigation/native';
 
-import api from '../../services/api';
 
 export default function ListGames({data}) {
 
   const [ url, setUrl ] = useState(data.background_image);
-  const [ modalVisible, setModalVisible ] = useState(false);
+  const [ rating, setRating ] = useState(data.rating.toFixed(1));
+
+  const navigator = useNavigation()
 
  return (
 
    <Container>
 
-    <Card onPress={() => setModalVisible(true)}>
+    <Card onPress={() => navigator.navigate('GamePage', {content: data})}>
 
       <Banner
       source={{uri: url}}
@@ -26,16 +26,12 @@ export default function ListGames({data}) {
         <Name>{data.name}</Name>
         <Rating>
         <AntDesign name="star" size={20} color="#FABB1E"/>
-        {data.rating}/10
+        {rating}/5
         </Rating>
 
       </ContainerText>
 
     </Card>
-
-    <Modal animationType="slide" visible={modalVisible} transparent={false}>
-      <ModalComponent close = {() => setModalVisible(false)} content={data}/>
-    </Modal>
 
    </Container>
   );

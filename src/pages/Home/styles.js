@@ -37,6 +37,10 @@ export const ButtonIcon = styled.TouchableOpacity`
     border-radius: 33px;
 `;
 
+export const ButtonSearch = styled.TouchableOpacity`
+
+`;
+
 export const Title = styled.Text`
     font-size: 30px;
     font-weight: bold;
