@@ -12,6 +12,7 @@ import ListGames from '../../components/ListGames/ListGames';
 function Home() {
 
   const [games, setGames] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
 
@@ -19,10 +20,10 @@ function Home() {
 
       const response = await api.get('api/games?page_size=10&key=96ffa22939174620840e464e6200055c');
 
-      //const genresResponse = await api.get('api/genres?key=96ffa22939174620840e464e6200055c')
+      const genresResponse = await api.get('api/genres?key=96ffa22939174620840e464e6200055c')
 
       setGames(response.data.results);
-      //setGenres(genresResponse.data.results)
+      setGenres(genresResponse.data.results);
 
     }
 
@@ -30,7 +31,8 @@ function Home() {
 
   }, [])
 
- return (
+ return(
+  
    <Container>
       
     <Header>

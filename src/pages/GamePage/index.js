@@ -1,28 +1,51 @@
-import React, {useState, } from 'react';
+import React, {useEffect, useState, } from 'react';
 import { Container, Card, Banner, BackButton, FavoriteButton, ShareButton, Subtitle, Rating, RatingText, ContainerInfo, Name } from './styles';
-
-import { useFocusEffect } from '@react-navigation/native';
 
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
-export default function GamePage(){
+import api from '../../services/api';
+import { useNavigation } from '@react-navigation/native';
 
+export default function GamePage(props){
+
+    const navigation = useNavigation()
+
+    const [ content, setContent ] = useState(props.route.params?.content);
+    const [ rating , setRating ] = useState(props.route.params?.content.rating.toFixed(1));
+    const [url, setUrl] = useState();
+
+    const [data, setData] = useState([]);
+    
+    //Trocar por useLayoutEffect
+
+    async function fetchGames(){
+
+        const response = await api.get(`api/games/${props.route.params?.content.slug}?key=96ffa22939174620840e464e6200055c`);
+
+        setData(response.data);
+    
+    }
+
+    fetchGames();
+    
  return (
    <Container>
 
     <Card>
 
-    <BackButton>
-        <AntDesign name="arrowleft" size={24} color="white"/>
-    </BackButton>
+        <BackButton onPress={() => navigation.goBack()}>
+            <AntDesign name="arrowleft" size={24} color="white"/>
+        </BackButton>
 
-    <FavoriteButton>
-        <MaterialIcons name="favorite-outline" size={24} color="white"/>
-    </FavoriteButton>
-    
-    <Banner/>
+        <FavoriteButton  onPress={() => console.log(data)}>
+            <MaterialIcons name="favorite-outline" size={24} color="white"/>
+        </FavoriteButton>
+        
+        <Banner
+        source={{uri: url}}
+        />
           
     </Card>
 
@@ -34,12 +57,12 @@ export default function GamePage(){
 
         <Rating>
             <AntDesign name="star" size={18} color="#FABB1E" />
-            <RatingText>/10</RatingText>
+            <RatingText>{rating}/10</RatingText>
         </Rating>
 
-        <Name>{name}</Name>
+        <Name>{data.name}</Name>
 
-        <Subtitle>Genres</Subtitle>
+        <Subtitle>{data.description}</Subtitle>
     </ContainerInfo>
 
    </Container>
